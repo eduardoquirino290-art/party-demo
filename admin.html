@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+  <title>Party Admin Dashboard</title>
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com">
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+
+    .admin-login {
+
+      min-height: 100vh;
+
+      display: grid;
+
+      place-items: center;
+
+      background:
+        linear-gradient(
+          135deg,
+          #073a7b,
+          #159ddd
+        );
+
+      padding: 20px;
+
+    }
+
+
+    .login-card {
+
+      background: white;
+
+      width: min(430px, 100%);
+
+      padding: 40px;
+
+      border-radius: 22px;
+
+      box-shadow:
+        0 25px 60px rgba(0,0,0,.2);
+
+    }
+
+
+    .login-logo {
+
+      width: 70px;
+
+      height: 70px;
+
+      margin: auto;
+
+      display: grid;
+
+      place-items: center;
+
+      border-radius: 50%;
+
+      background: #e92323;
+
+      font-size: 35px;
+
+    }
+
+
+    .login-card h1 {
+
+      text-align: center;
+
+      color: #0b3977;
+
+      font-size: 40px;
+
+      margin: 10px 0;
+
+    }
+
+
+    .login-card p {
+
+      text-align: center;
+
+      color: #718096;
+
+    }
+
+
+    .login-card label {
+
+      display: block;
+
+      margin-top: 15px;
+
+      font-size: 12px;
+
+      font-weight: 800;
+
+    }
+
+
+    .login-card input {
+
+      width: 100%;
+
+      padding: 13px;
+
+      margin-top: 6px;
+
+      border: 1px solid #d5dfe9;
+
+      border-radius: 9px;
+
+    }
+
+
+    .login-card button {
+
+      width: 100%;
+
+      margin-top: 20px;
+
+    }
+
+
+    .demo-login {
+
+      text-align: center;
+
+      font-size: 12px;
+
+      color: #777;
+
+      margin-top: 12px;
+
+    }
+
+
+    .dashboard {
+
+      min-height: 100vh;
+
+      display: none;
+
+      background: #eef3f8;
+
+    }
+
+
+    .dashboard.active {
+
+      display: block;
+
+    }
+
+
+    .dashboard-header {
+
+      background: #082e66;
+
+      color: white;
+
+      padding: 25px 6%;
+
+      display: flex;
+
+      justify-content: space-between;
+
+      align-items: center;
+
+    }
+
+
+    .dashboard-header h1 {
+
+      margin: 0;
+
+      font-size: 32px;
+
+    }
+
+
+    .logout {
+
+      background: #e92323;
+
+      color: white;
+
+      border: 0;
+
+      padding: 10px 16px;
+
+      border-radius: 8px;
+
+      cursor: pointer;
+
+      font-weight: 700;
+
+    }
+
+
+    .dashboard-content {
+
+      max-width: 1300px;
+
+      margin: auto;
+
+      padding: 35px 6%;
+
+    }
+
+
+    .stats {
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(5, 1fr);
+
+      gap: 15px;
+
+      margin-bottom: 25px;
+
+    }
+
+
+    .stat {
+
+      background: white;
+
+      padding: 22px;
+
+      border-radius: 14px;
+
+      box-shadow:
+        0 8px 25px rgba(20,50,90,.08);
+
+    }
+
+
+    .stat span {
+
+      display: block;
+
+      color: #718096;
+
+      font-size: 12px;
+
+      font-weight: 700;
+
+    }
+
+
+    .stat strong {
+
+      display: block;
+
+      color: #0b56ad;
+
+      font-family: "Baloo 2";
+
+      font-size: 35px;
+
+    }
+
+
+    .guest-card {
+
+      background: white;
+
+      border-radius: 18px;
+
+      padding: 25px;
+
+      box-shadow:
+        0 8px 25px rgba(20,50,90,.08);
+
+    }
+
+
+    .guest-header {
+
+      display: flex;
+
+      justify-content: space-between;
+
+      gap: 15px;
+
+      align-items: center;
+
+      margin-bottom: 20px;
+
+    }
+
+
+    .guest-header h2 {
+
+      color: #0b3977;
+
+      margin: 0;
+
+    }
+
+
+    #search {
+
+      padding: 11px;
+
+      border: 1px solid #d5dfe9;
+
+      border-radius: 8px;
+
+    }
+
+
+    table {
+
+      width: 100%;
+
+      border-collapse: collapse;
+
+    }
+
+
+    th,
+    td {
+
+      padding: 14px;
+
+      border-bottom: 1px solid #e6ebf1;
+
+      text-align: left;
+
+      font-size: 13px;
+
+    }
+
+
+    th {
+
+      color: #718096;
+
+      font-size: 11px;
+
+      text-transform: uppercase;
+
+    }
+
+
+    .delete {
+
+      border: 0;
+
+      background: #fff0f0;
+
+      color: #c82020;
+
+      padding: 7px 10px;
+
+      border-radius: 6px;
+
+      cursor: pointer;
+
+    }
+
+
+    @media(max-width:900px) {
+
+      .stats {
+
+        grid-template-columns:
+          repeat(2, 1fr);
+
+      }
+
+      .guest-header {
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+      }
+
+    }
+
+
+    @media(max-width:600px) {
+
+      .dashboard-header {
+
+        padding: 20px;
+
+      }
+
+      .dashboard-content {
+
+        padding: 20px;
+
+      }
+
+      .stats {
+
+        grid-template-columns: 1fr 1fr;
+
+      }
+
+      .guest-card {
+
+        overflow-x: auto;
+
+      }
+
+      table {
+
+        min-width: 700px;
+
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+<!-- LOGIN -->
+
+<div id="loginScreen" class="admin-login">
+
+  <div class="login-card">
+
+    <div class="login-logo">🐾</div>
+
+    <h1>Admin Login</h1>
+
+    <p>
+      Manage your party RSVPs.
+    </p>
+
+
+    <form id="loginForm">
+
+      <label>Email</label>
+
+      <input
+        id="email"
+        type="email"
+        value="admin@party-demo.com"
+        required>
+
+
+      <label>Password</label>
+
+      <input
+        id="password"
+        type="password"
+        placeholder="Password"
+        required>
+
+
+      <button
+        class="button blue"
+        type="submit">
+
+        🔐 Sign In
+
+      </button>
+
+    </form>
+
+
+    <div class="demo-login">
+
+      Demo login:<br>
+
+      admin@party-demo.com<br>
+
+      Password: <b>admin123</b>
+
+    </div>
+
+
+    <p>
+
+      <a href="index.html">
+        ← Back to website
+      </a>
+
+    </p>
+
+  </div>
+
+</div>
+
+
+
+<!-- DASHBOARD -->
+
+<div id="dashboard" class="dashboard">
+
+  <header class="dashboard-header">
+
+    <div>
+
+      <small>
+        MASON'S 5TH BIRTHDAY
+      </small>
+
+      <h1>
+        Party Dashboard
+      </h1>
+
+    </div>
+
+
+    <button
+      class="logout"
+      onclick="logout()">
+
+      Log Out
+
+    </button>
+
+  </header>
+
+
+  <main class="dashboard-content">
+
+
+    <div class="stats">
+
+      <div class="stat">
+        <span>TOTAL RSVPs</span>
+        <strong id="total">0</strong>
+      </div>
+
+      <div class="stat">
+        <span>ATTENDING</span>
+        <strong id="attending">0</strong>
+      </div>
+
+      <div class="stat">
+        <span>NOT ATTENDING</span>
+        <strong id="notAttending">0</strong>
+      </div>
+
+      <div class="stat">
+        <span>MAYBE</span>
+        <strong id="maybe">0</strong>
+      </div>
+
+      <div class="stat">
+        <span>PEOPLE COMING</span>
+        <strong id="people">0</strong>
+      </div>
+
+    </div>
+
+
+    <div class="guest-card">
+
+      <div class="guest-header">
+
+        <div>
+
+          <h2>
+            👥 Guests Attending
+          </h2>
+
+          <p>
+            Everyone who confirmed they will be there.
+          </p>
+
+        </div>
+
+
+        <input
+          id="search"
+          placeholder="Search guests..."
+          oninput="renderGuests()">
+
+      </div>
+
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>Guest</th>
+
+            <th>Guests</th>
+
+            <th>Favorite Pup</th>
+
+            <th>Notes</th>
+
+            <th>Date</th>
+
+            <th></th>
+
+          </tr>
+
+        </thead>
+
+
+        <tbody id="guestList"></tbody>
+
+      </table>
+
+    </div>
+
+  </main>
+
+</div>
+
+
+
+<script>
+
+const KEY = "party_demo_rsvps";
+
+
+function getData() {
+
+  return JSON.parse(
+    localStorage.getItem(KEY)
+  ) || [];
+
+}
+
+
+/* LOGIN */
+
+document
+  .getElementById("loginForm")
+  .addEventListener("submit", function(e) {
+
+    e.preventDefault();
+
+
+    const email =
+      document.getElementById("email").value;
+
+    const password =
+      document.getElementById("password").value;
+
+
+    if (
+      email === "admin@party-demo.com" &&
+      password === "admin123"
+    ) {
+
+      sessionStorage.setItem(
+        "adminLoggedIn",
+        "true"
+      );
+
+      showDashboard();
+
+    } else {
+
+      alert(
+        "Incorrect email or password."
+      );
+
+    }
+
+  });
+
+
+function showDashboard() {
+
+  document
+    .getElementById("loginScreen")
+    .style.display = "none";
+
+  document
+    .getElementById("dashboard")
+    .classList.add("active");
+
+  renderGuests();
+
+}
+
+
+function logout() {
+
+  sessionStorage.removeItem(
+    "adminLoggedIn"
+  );
+
+  location.reload();
+
+}
+
+
+/* AUTO LOGIN */
+
+if (
+  sessionStorage.getItem(
+    "adminLoggedIn"
+  ) === "true"
+) {
+
+  showDashboard();
+
+}
+
+
+/* DASHBOARD */
+
+function renderGuests() {
+
+  const data = getData();
+
+  const attending =
+    data.filter(
+      r => r.attendance === "yes"
+    );
+
+  const no =
+    data.filter(
+      r => r.attendance === "no"
+    );
+
+  const maybe =
+    data.filter(
+      r => r.attendance === "maybe"
+    );
+
+
+  document.getElementById("total")
+    .textContent = data.length;
+
+  document.getElementById("attending")
+    .textContent = attending.length;
+
+  document.getElementById("notAttending")
+    .textContent = no.length;
+
+  document.getElementById("maybe")
+    .textContent = maybe.length;
+
+
+  const people =
+    attending.reduce(
+      (total, r) =>
+        total + Number(r.guests || 0),
+      0
+    );
+
+
+  document.getElementById("people")
+    .textContent = people;
+
+
+  const search =
+    document
+      .getElementById("search")
+      .value
+      .toLowerCase();
+
+
+  const filtered =
+    attending.filter(r =>
+      r.name
+        .toLowerCase()
+        .includes(search)
+    );
+
+
+  const list =
+    document.getElementById("guestList");
+
+
+  list.innerHTML = "";
+
+
+  filtered.forEach(function(rsvp) {
+
+    const row =
+      document.createElement("tr");
+
+
+    row.innerHTML = `
+
+      <td><strong>
+        ${escapeHTML(rsvp.name)}
+      </strong></td>
+
+      <td>
+        ${rsvp.guests}
+      </td>
+
+      <td>
+        ${escapeHTML(rsvp.pup || "—")}
+      </td>
+
+      <td>
+        ${escapeHTML(rsvp.notes || "—")}
+      </td>
+
+      <td>
+        ${new Date(
+          rsvp.submitted
+        ).toLocaleDateString()}
+      </td>
+
+      <td>
+
+        <button
+          class="delete"
+          onclick="deleteGuest('${rsvp.id}')">
+
+          Delete
+
+        </button>
+
+      </td>
+
+    `;
+
+
+    list.appendChild(row);
+
+  });
+
+}
+
+
+function deleteGuest(id) {
+
+  if (
+    !confirm(
+      "Delete this RSVP?"
+    )
+  ) return;
+
+
+  const data =
+    getData().filter(
+      r => String(r.id) !== String(id)
+    );
+
+
+  localStorage.setItem(
+    KEY,
+    JSON.stringify(data)
+  );
+
+
+  renderGuests();
+
+}
+
+
+function escapeHTML(text) {
+
+  return String(text)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+
+}
+
+</script>
+
+
+</body>
+
+</html>
